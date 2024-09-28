@@ -31,6 +31,11 @@ const MenuBar = ({ isDarkMode }: Props) => {
       active: pathname === `/`,
     },
     {
+      href: `/market`,
+      label: "Market",
+      active: pathname === `/market`,
+    },
+    {
       href: `/news`,
       label: "News",
       active: pathname === `/news`,

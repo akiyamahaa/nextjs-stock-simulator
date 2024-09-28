@@ -10,8 +10,14 @@ export default function Home() {
         <ListCardTotal />
         <TableInvest />
       </div>
-      <ListMarket />
-      <ListNew />
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold text-gray-800">Trending on Market</h1>
+        <ListMarket />
+      </div>
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold text-gray-800">Lastest Stock News</h1>
+        <ListNew />
+      </div>
     </div>
   );
 }

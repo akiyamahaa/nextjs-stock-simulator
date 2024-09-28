@@ -4,7 +4,7 @@ import NewImage from "@/public/images/new1.png";
 
 type Props = {};
 
-const page = (props: Props) => {
+const NewDetailPage = (props: Props) => {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
@@ -54,4 +54,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default NewDetailPage;
