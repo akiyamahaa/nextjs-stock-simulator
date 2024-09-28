@@ -16,7 +16,10 @@ import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
-const MenuBar = () => {
+interface Props {
+  isDarkMode: boolean;
+}
+const MenuBar = ({ isDarkMode }: Props) => {
   const pathname = usePathname();
   const { isSignedIn } = useUser();
   const [open, setOpen] = useState(false); // Add state for dropdown
@@ -41,7 +44,7 @@ const MenuBar = () => {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <MenuSquare color="white" size={24} />
+        <MenuSquare color={isDarkMode ? "white" : "black"} size={24} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-white">
         <DropdownMenuLabel>Finance Simulator</DropdownMenuLabel>
@@ -53,7 +56,8 @@ const MenuBar = () => {
                 key={route.href}
                 href={route.href}
                 className={cn(
-                  "text-base transition-colors hover:text-primary text-dark-2"
+                  "text-base transition-colors hover:text-primary text-dark-2",
+                  route.active && "text-primary"
                 )}
                 onClick={() => setOpen(false)} // Close dropdown on click
               >

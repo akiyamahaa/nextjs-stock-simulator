@@ -23,32 +23,11 @@ const config: Config = {
         primary: {
           DEFAULT: "#0056D2",
           foreground: "hsl(var(--primary-foreground))",
+          50: "#ECF9FF",
         },
         secondary: {
           DEFAULT: "#13C296",
           foreground: "hsl(var(--secondary-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
         },
         "primary-text": "#637381",
         "secondary-text": "#8899A8",
@@ -63,11 +42,26 @@ const config: Config = {
           7: "#D1D5DB",
           8: "#E5E7EB",
         },
+        green: {
+          1: "#22AD5C",
+          dark: "#1A8245",
+          light: "#2CD673",
+          "light-2": "#57DE8F",
+          "light-3": "#82E6AC",
+          "light-4": "#ACEFC8",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      backgroundImage: {
+        // Add custom background images here
+        "card-total": "url('/images/bg-card-total.png')",
+      },
+      boxShadow: {
+        app: "0px 4px 24px 0px rgba(0, 0, 0, 0.05)",
       },
     },
   },

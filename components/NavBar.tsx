@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LogoLight from "@/public/images/logo-light.png";
 import LogoDark from "@/public/images/logo-dark.png";
 
@@ -13,13 +13,23 @@ import { Button } from "@/components/ui/button";
 
 import MenuBar from "./MenuBar";
 
-type Props = {
-  isDarkMode: boolean;
-};
-
-const NavBar = ({ isDarkMode }: Props) => {
+const NavBar = () => {
   const { isSignedIn } = useUser();
   const pathname = usePathname();
+  const isDarkMode = pathname === "/";
+  const [isScrolled, setIsScrolled] = useState(isDarkMode);
+
+  // Effect to handle scroll event
+  useEffect(() => {
+    setIsScrolled(isDarkMode);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY < 400);
+    };
+    if (isDarkMode) {
+      window.addEventListener("scroll", handleScroll);
+    }
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isDarkMode]);
 
   const routes = [
     {
@@ -38,22 +48,23 @@ const NavBar = ({ isDarkMode }: Props) => {
       active: pathname === `/about`,
     },
   ];
+
   return (
     <div
       className={cn(
         "flex flex-row justify-between items-center px-8 py-3 fixed top-0 left-0 right-0 z-10",
-        !isDarkMode && "border-b border-b-stroke"
+        !isScrolled && "bg-white border-b border-b-stroke"
       )}
     >
       {/* Menu Btn */}
       <div className="flex items-center md:hidden">
-        <MenuBar />
+        <MenuBar isDarkMode={isScrolled} />
       </div>
       <div className="flex flex-row items-center gap-10 self-center">
         {/* Logo */}
         <Link href={"/"}>
           <Image
-            src={isDarkMode ? LogoDark : LogoLight}
+            src={isScrolled ? LogoDark : LogoLight}
             alt="logo"
             className="h-10 w-36"
           />
@@ -68,7 +79,7 @@ const NavBar = ({ isDarkMode }: Props) => {
                 "text-base font-semibold transition-colors hover:text-primary",
                 route.active
                   ? "text-primary"
-                  : isDarkMode
+                  : isScrolled
                     ? "text-white"
                     : "text-dark-2"
               )}

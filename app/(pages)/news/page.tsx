@@ -1,11 +1,14 @@
-import React from 'react'
+import ListNew from "@/components/ListNew";
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const NewsPage = (props: Props) => {
   return (
-    <div>NewsPage</div>
-  )
-}
+    <div>
+      <ListNew />
+    </div>
+  );
+};
 
-export default NewsPage
+export default NewsPage;
