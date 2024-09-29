@@ -38,6 +38,11 @@ const NavBar = () => {
       active: pathname === `/`,
     },
     {
+      href: `/market`,
+      label: "Market",
+      active: pathname === `/market`,
+    },
+    {
       href: `/news`,
       label: "News",
       active: pathname === `/news`,
@@ -46,11 +51,6 @@ const NavBar = () => {
       href: `/about`,
       label: "About",
       active: pathname === `/about`,
-    },
-    {
-      href: `/market`,
-      label: "Market",
-      active: pathname === `/market`,
     },
   ];
 
