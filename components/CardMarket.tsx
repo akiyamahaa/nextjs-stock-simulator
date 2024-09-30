@@ -5,12 +5,12 @@ import Link from "next/link";
 
 type Props = {};
 
-const CardMarket = (props: Props) => {
+const CardMarket = ({}: Props) => {
   return (
     <Link href={"/market/123"}>
       <div className="flex flex-col items-start rounded-2xl bg-white p-6 shadow-app">
         <LogoCompany isHorizontal={false} />
-        <div className="w-full space-y-2 mt-4">
+        <div className="mt-4 w-full space-y-2">
           <div className="flex flex-row justify-between">
             <p className="text-sm text-gray-400">Market cap</p>
             <p className="text-sm text-gray-800">$3.355</p>

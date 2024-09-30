@@ -1,8 +1,5 @@
 "use client";
-import {
-  IgrFinancialChart,
-  IgrFinancialChartModule,
-} from "igniteui-react-charts";
+
 import Image from "next/image";
 import React, { useState } from "react";
 import AppleLogo from "@/public/images/apple.svg";
@@ -11,8 +8,7 @@ import { mockup } from "@/constants/mockup";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import TableTransaction from "./components/TableTransaction";
-
-IgrFinancialChartModule.register();
+import CandleChart from "./components/CandleChart";
 
 type Props = {};
 
@@ -100,19 +96,7 @@ const MarketDetailPage = (props: Props) => {
           </div>
         </div>
         <div className="h-[500px]">
-          <div className="size-full bg-white">
-            <IgrFinancialChart
-              width="100%"
-              height="100%"
-              chartType="Candle"
-              zoomSliderType="Candle"
-              volumeType="Area"
-              overlayBrushes="rgba(5, 138, 0, 0.17)"
-              overlayOutlines="rgba(5, 138, 0, 0.4)"
-              overlayThickness={1}
-              dataSource={data}
-            />
-          </div>
+          <CandleChart data={data} />
         </div>
       </div>
       {/* Trading Panel */}
