@@ -42,7 +42,7 @@ const TableTransaction = async ({ stock }: Props) => {
               </p>
               <p className="text-sm text-gray-400 ">{trade.quantity}</p>
               <p className="text-sm text-gray-400 min-w-14">
-                ${addCommas(trade.totalPrice)}
+                ${addCommas(Number(trade.totalPrice.toFixed(2)))}
               </p>
             </div>
           </div>

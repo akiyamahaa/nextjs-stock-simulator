@@ -40,7 +40,7 @@ const MarketDetailPage = async ({
           <h2 className="flex-1 text-2xl font-semibold text-gray-800">
             Trading Panel
           </h2>
-          <UserInfo />
+          <UserInfo stock={stock} />
         </div>
         <div className="flex flex-col gap-8 md:flex-row">
           <OrderStock stock={stock} />

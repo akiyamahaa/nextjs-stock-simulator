@@ -1,3 +1,5 @@
+import { getStockHolding } from "@/app/actions/stock";
+import { ETradeMode } from "@/constants/utils";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 
@@ -24,10 +26,40 @@ export const POST = async (
     if (!user) {
       return new NextResponse("User not found", { status: 404 });
     }
-    // Check if the user has a simulation
 
     const { tradeType, quantity, price } = body;
-    console.log(body, user.simulation!.currentDay);
+    // Calculate total price
+    const totalTradeValue = quantity * price;
+
+    let updatedBalance = 0;
+
+    if (tradeType === ETradeMode.BUY) {
+      if (user.balance < totalTradeValue) {
+        return new NextResponse("Insufficient balance for this trade", {
+          status: 400,
+        });
+      }
+      updatedBalance = user.balance - totalTradeValue;
+    } else if (tradeType === ETradeMode.SELL) {
+      const currentStockHoldings = await getStockHolding(
+        parseInt(params.stockId)
+      );
+      if (currentStockHoldings < quantity) {
+        return new NextResponse("Insufficient stock quantity to sell", {
+          status: 400,
+        });
+      }
+      updatedBalance = user.balance + totalTradeValue;
+    }
+    await db.user.update({
+      where: {
+        clerkUserId: userId,
+      },
+      data: {
+        balance: updatedBalance,
+      },
+    });
+
     await db.trade.create({
       data: {
         userId,
@@ -39,7 +71,9 @@ export const POST = async (
         tradeDay: user.simulation!.currentDay,
       },
     });
-    return new NextResponse("Success Trade", { status: 201 });
+
+    const message = tradeType + "stock successfully";
+    return new NextResponse(message, { status: 201 });
   } catch (error) {
     console.log(`STORES_POST:${error}`);
     return new NextResponse("Internal Server Error", { status: 500 });

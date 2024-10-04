@@ -1,3 +1,4 @@
+import { ETradeMode } from "@/constants/utils";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 
@@ -73,4 +74,28 @@ async function getStockById(stockId: number): Promise<IStock | null> {
   }
 }
 
-export { getStocks, getStockById };
+const getStockHolding = async (stockId: number) => {
+  const { userId } = auth();
+  const userTrades = await db.trade.findMany({
+    where: {
+      userId: userId!,
+      stockId: stockId,
+    },
+  });
+  let totalBought = 0;
+  let totalSold = 0;
+
+  userTrades.forEach((trade) => {
+    if (trade.tradeType === ETradeMode.BUY) {
+      totalBought += trade.quantity;
+    } else if (trade.tradeType === ETradeMode.SELL) {
+      totalSold += trade.quantity;
+    }
+  });
+
+  const currentStockHoldings = totalBought - totalSold;
+
+  return currentStockHoldings;
+};
+
+export { getStocks, getStockById, getStockHolding };

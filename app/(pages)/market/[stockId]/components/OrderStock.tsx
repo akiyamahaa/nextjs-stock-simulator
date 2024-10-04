@@ -2,20 +2,18 @@
 
 import { IStock } from "@/app/actions/stock";
 import { Input } from "@/components/ui/input";
+import { ETradeMode } from "@/constants/utils";
 import { addCommas, cn } from "@/lib/utils";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-
-const BUY = "buy";
-const SELL = "sell";
+import toast from "react-hot-toast";
 
 interface Props {
   stock: IStock;
 }
 
 const OrderStock = ({ stock }: Props) => {
-  console.log("🚀 ~ OrderStock ~ stock:", stock.candlesticks);
   const [mode, setMode] = useState("");
   const router = useRouter();
   const [quantity, setQuantity] = useState(0);
@@ -33,11 +31,9 @@ const OrderStock = ({ stock }: Props) => {
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       router.refresh();
+      toast.success(`${mode.toUpperCase()} SUCCESSFULLY`);
     } catch (error: any) {
-      console.error(
-        "Error creating trade:",
-        error.response?.data || error.message
-      );
+      toast.error(error.response?.data || error.message);
     }
   };
   return (
@@ -48,14 +44,14 @@ const OrderStock = ({ stock }: Props) => {
           <div
             className={cn(
               "flex-1 px-3 py-4 cursor-pointer hover:opacity-95",
-              mode === SELL && "bg-red-600"
+              mode === ETradeMode.SELL && "bg-red-600"
             )}
-            onClick={() => setMode(SELL)}
+            onClick={() => setMode(ETradeMode.SELL)}
           >
             <p
               className={cn(
                 "text-base font-medium text-gray-400",
-                mode === SELL && "text-white"
+                mode === ETradeMode.SELL && "text-white"
               )}
             >
               Sell
@@ -63,9 +59,10 @@ const OrderStock = ({ stock }: Props) => {
             <p
               className={cn(
                 "text-base font-medium text-gray-400",
-                mode === SELL && "text-white"
+                mode === ETradeMode.SELL && "text-white"
               )}
             >
+              $
               {addCommas(
                 stock.candlesticks![stock.candlesticks!.length - 1].close
               )}
@@ -74,14 +71,14 @@ const OrderStock = ({ stock }: Props) => {
           <div
             className={cn(
               "flex-1 px-3 py-4 cursor-pointer hover:opacity-95",
-              mode === BUY && "bg-primary"
+              mode === ETradeMode.BUY && "bg-primary"
             )}
-            onClick={() => setMode(BUY)}
+            onClick={() => setMode(ETradeMode.BUY)}
           >
             <p
               className={cn(
                 "text-base font-medium text-gray-400 text-right",
-                mode === BUY && "text-white"
+                mode === ETradeMode.BUY && "text-white"
               )}
             >
               Buy
@@ -89,9 +86,10 @@ const OrderStock = ({ stock }: Props) => {
             <p
               className={cn(
                 "text-base font-medium text-gray-400 text-right",
-                mode === BUY && "text-white"
+                mode === ETradeMode.BUY && "text-white"
               )}
             >
+              $
               {addCommas(
                 stock.candlesticks![stock.candlesticks!.length - 1].close
               )}
@@ -127,11 +125,13 @@ const OrderStock = ({ stock }: Props) => {
         <div
           className={cn(
             "flex flex-1 items-center justify-center rounded-xl py-2 cursor-pointer",
-            mode === BUY ? "bg-primary" : "bg-red-600"
+            mode === ETradeMode.BUY ? "bg-primary" : "bg-red-600"
           )}
           onClick={createTrade}
         >
-          <p className="text-white">{mode === BUY ? "Buy" : "SELL"}</p>
+          <p className="text-white">
+            {mode === ETradeMode.BUY ? "Buy" : "SELL"}
+          </p>
         </div>
       )}
     </div>

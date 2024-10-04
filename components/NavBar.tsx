@@ -12,6 +12,7 @@ import { UserButton, useUser, SignedOut } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
 import MenuBar from "./MenuBar";
+import BoxCurrentDay from "./BoxCurrentDay";
 interface Props {
   userDay: number | string;
 }
@@ -109,16 +110,7 @@ const NavBar = ({ userDay }: Props) => {
       </div>
       {isSignedIn ? (
         <div className="flex flex-row items-center gap-2">
-          <div
-            className={cn(
-              "border rounded-xl px-2 py-1",
-              isDarkMode
-                ? "text-white border-white"
-                : "border-primary text-primary"
-            )}
-          >
-            Day {userDay}
-          </div>
+          <BoxCurrentDay isDarkMode={isScrolled} userDay={userDay} />
           <UserButton />
         </div>
       ) : (
