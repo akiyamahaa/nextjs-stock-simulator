@@ -8,12 +8,15 @@ import LogoDark from "@/public/images/logo-dark.png";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { UserButton, useUser, SignedOut } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
 import MenuBar from "./MenuBar";
+interface Props {
+  userDay: number | string;
+}
 
-const NavBar = () => {
+const NavBar = ({ userDay }: Props) => {
   const { isSignedIn } = useUser();
   const pathname = usePathname();
   const isDarkMode = pathname === "/";
@@ -96,15 +99,31 @@ const NavBar = () => {
       </div>
       {/* Auth button */}
       <div className="hidden md:block">
-        {!isSignedIn && (
+        <SignedOut>
           <Link href="/sign-in">
             <Button className="px-6 text-base font-medium text-white">
               Sign in
             </Button>
           </Link>
-        )}
+        </SignedOut>
       </div>
-      {isSignedIn ? <UserButton /> : <div className="block md:hidden" />}
+      {isSignedIn ? (
+        <div className="flex flex-row items-center gap-2">
+          <div
+            className={cn(
+              "border rounded-xl px-2 py-1",
+              isDarkMode
+                ? "text-white border-white"
+                : "border-primary text-primary"
+            )}
+          >
+            Day {userDay}
+          </div>
+          <UserButton />
+        </div>
+      ) : (
+        <div className="block md:hidden" />
+      )}
     </div>
   );
 };
