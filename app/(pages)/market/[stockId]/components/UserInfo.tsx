@@ -6,7 +6,6 @@ import React from "react";
 const UserInfo = async ({ stock }: { stock: IStock }) => {
   const user = await checkUser();
   const totalShared = await getStockHolding(stock.id);
-  console.log("🚀 ~ UserInfo ~ user:", totalShared);
   return (
     <div className="flex flex-1 flex-row justify-between">
       <div className="space-y-1">

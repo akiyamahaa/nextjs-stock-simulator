@@ -15,7 +15,7 @@ const nextDay = async () => {
         },
       },
     });
-    revalidatePath("/");
+    revalidatePath("/market/");
   } catch (error) {
     console.log(error);
   }

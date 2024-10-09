@@ -10,11 +10,19 @@ export default async function HomeLayout({
   children: React.ReactNode;
 }) {
   const user = await checkUser();
+
   return (
     <div className="bg-gray-50">
       <NavBar userDay={user?.simulation?.currentDay || "Unknown"} />
       <Hero />
-      <div className="px-8 py-24 xl:px-40">{children}</div>
+      <div
+        className="px-8 py-24 xl:px-40"
+        style={{
+          minHeight: "calc(100vh - 224px)",
+        }}
+      >
+        {children}
+      </div>
       <Footer />
     </div>
   );

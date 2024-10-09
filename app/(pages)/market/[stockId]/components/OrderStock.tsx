@@ -17,9 +17,6 @@ const OrderStock = ({ stock }: Props) => {
   const [mode, setMode] = useState("");
   const router = useRouter();
   const [quantity, setQuantity] = useState(0);
-  const [price, setPrice] = useState(
-    stock.candlesticks![stock.candlesticks!.length - 1].close
-  );
 
   const createTrade = async () => {
     // TODO: Check enough balance, and enough quantity to buy sell
@@ -115,8 +112,8 @@ const OrderStock = ({ stock }: Props) => {
           <h3 className="text-base font-medium text-gray-800">USD</h3>
           <Input
             type="number"
-            value={price}
-            onChange={(e) => setPrice(Number(e.target.value))}
+            value={stock.candlesticks![stock.candlesticks!.length - 1].close}
+            disabled
           />
         </div>
       </div>

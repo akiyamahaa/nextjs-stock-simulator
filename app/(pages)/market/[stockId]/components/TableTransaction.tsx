@@ -1,6 +1,4 @@
-import Image from "next/image";
 import React from "react";
-import AppleLogo from "@/public/images/apple.svg";
 import { getTrades } from "@/app/actions/trade";
 import { IStock } from "@/app/actions/stock";
 import { addCommas, cn } from "@/lib/utils";

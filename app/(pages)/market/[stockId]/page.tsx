@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
 import TableTransaction from "./components/TableTransaction";
 import { getStockById } from "@/app/actions/stock";
 import StockInfo from "./components/StockInfo";
@@ -14,6 +13,7 @@ const MarketDetailPage = async ({
   params: { stockId: string };
 }) => {
   const stock = await getStockById(Number(params.stockId));
+
   if (!stock) {
     return (
       <div>

@@ -58,11 +58,11 @@ async function getStockById(stockId: number): Promise<IStock | null> {
         candlesticks: {
           where: {
             simulationDay: {
-              lte: userSimulation.currentDay, // Filter candlesticks where simulationDay is <= current simulation day
+              lte: userSimulation.currentDay - 1,
             },
           },
           orderBy: {
-            simulationDay: "asc", // Order candlesticks by simulationDay in ascending order
+            simulationDay: "asc",
           },
         },
       },

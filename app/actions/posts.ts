@@ -1,6 +1,7 @@
 "use server";
 import { db } from "@/lib/db";
 import { IStock } from "./stock";
+import { auth } from "@clerk/nextjs/server";
 
 export interface IPost {
   id: number;
@@ -27,6 +28,46 @@ async function getPosts(): Promise<IPost[] | null> {
   }
 }
 
+async function getLatestPosts(): Promise<IPost[] | null> {
+  const { userId } = auth();
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+  try {
+    const userSimulation = await db.simulation.findUnique({
+      where: {
+        userId: userId,
+      },
+      select: {
+        currentDay: true, // Select only the current simulation day
+      },
+    });
+    if (!userSimulation) {
+      throw new Error("Simulation not found for the user");
+    }
+    console.log("🚀 ~ getLatestPosts ~ userDay:", userSimulation);
+
+    const latestPosts = await db.posts.findMany({
+      where: {
+        simulationDay: {
+          lt: userSimulation.currentDay,
+        },
+      },
+      include: {
+        stock: true, // Include related Stock information
+      },
+      orderBy: {
+        simulationDay: "desc",
+      },
+      take: 3,
+    });
+    return latestPosts;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
 async function getPostById(postId: number): Promise<IPost | null> {
   try {
     const post = await db.posts.findUnique({
@@ -44,4 +85,4 @@ async function getPostById(postId: number): Promise<IPost | null> {
   }
 }
 
-export { getPosts, getPostById };
+export { getPosts, getPostById, getLatestPosts };
