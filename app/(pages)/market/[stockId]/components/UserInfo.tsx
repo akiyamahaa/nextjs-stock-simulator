@@ -6,10 +6,7 @@ import React from "react";
 
 const UserInfo = async ({ stock }: { stock: IStock }) => {
   const user = await checkUser();
-  const latestStick = getLatestCandleStick(
-    stock.candlesticks!,
-    user?.simulation?.currentDay!
-  );
+  const latestStick = getLatestCandleStick(stock.candlesticks!);
   const totalHoldingShared = await getStockHolding(stock.id);
   const allBuyTrades = await getBuyTrades(stock.id);
 

@@ -1,9 +1,9 @@
-import TableInvest from "@/components/TableInvest";
 import ListCardTotal from "./components/ListCardTotal";
 import ListMarket from "@/components/ListMarket";
 import ListNew from "@/components/ListNew";
 import { SignedIn } from "@clerk/nextjs";
 import { getLatestPosts } from "@/app/actions/posts";
+import TableInvest from "./components/TableInvest";
 
 export default async function Home() {
   const latestPosts = await getLatestPosts();

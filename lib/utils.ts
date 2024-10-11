@@ -12,8 +12,13 @@ export function addCommas(x: number): string {
 
 export const getLatestCandleStick = (
   candleLists: ICandleStick[],
-  userDay: number
+  numDay = 0
 ) => {
-  const last = candleLists.find((item) => item.simulationDay == userDay - 1);
+  const latestSimulationDay = Math.max(
+    ...candleLists.map((candle) => candle.simulationDay)
+  );
+  const last = candleLists.find(
+    (item) => item.simulationDay == latestSimulationDay - numDay
+  );
   return last;
 };

@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { ArrowUpRight, CircleDollarSign } from "lucide-react";
+import { addCommas, cn } from "@/lib/utils";
+import { ArrowDownLeft, ArrowUpRight, CircleDollarSign } from "lucide-react";
 import React from "react";
 
 type Props = {
@@ -35,13 +35,26 @@ const CardTotal = ({ amount, title, type, interestRate }: Props) => {
         <div className="flex flex-row items-center gap-2">
           <p className="text-sm leading-5 text-gray-400">{title}</p>
           {interestRate && (
-            <p className="flex flex-row items-center rounded-full bg-green-100 px-2 py-0.5 text-green-1">
-              <ArrowUpRight size={16} color={"#16A34A"} strokeWidth={3} />
-              {interestRate}%
+            <p
+              className={cn(
+                "flex flex-row items-center rounded-full bg-green-100 px-2 py-0.5 text-green-1",
+                interestRate > 0
+                  ? "text-green-500 bg-green-100"
+                  : "bg-red-100 text-red-500"
+              )}
+            >
+              {interestRate > 0 ? (
+                <ArrowUpRight size={16} color={"#16A34A"} strokeWidth={3} />
+              ) : (
+                <ArrowDownLeft size={16} color={"#DC2626"} strokeWidth={3} />
+              )}
+              {interestRate.toFixed(2)}%
             </p>
           )}
         </div>
-        <p className="text-3xl font-semibold text-dark-2">${amount}</p>
+        <p className="text-3xl font-semibold text-dark-2">
+          ${addCommas(Number(amount.toFixed(2)))}
+        </p>
       </div>
       <div className={cn("rounded-xl p-2.5", colorsIcon[type].color1)}>
         <CircleDollarSign color={colorsIcon[type].color2} size={24} />

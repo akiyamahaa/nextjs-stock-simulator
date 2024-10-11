@@ -10,7 +10,7 @@ export interface ICandleStick {
   high: number;
   low: number;
   volume: number;
-  date: Date;
+  date: string;
   simulationDay: number;
 }
 
@@ -27,8 +27,33 @@ export interface IStock {
 }
 
 async function getStocks(): Promise<IStock[] | null> {
+  const { userId } = auth();
   try {
-    const stocks = await db.stock.findMany({});
+    const userSimulation = await db.simulation.findUnique({
+      where: {
+        userId: userId!,
+      },
+      select: {
+        currentDay: true, // Select only the current simulation day
+      },
+    });
+    if (!userSimulation) {
+      throw new Error("Simulation not found for the user");
+    }
+    const stocks = await db.stock.findMany({
+      include: {
+        candlesticks: {
+          where: {
+            simulationDay: {
+              lte: userSimulation.currentDay - 1,
+            },
+          },
+          orderBy: {
+            simulationDay: "asc",
+          },
+        },
+      },
+    });
     return stocks;
   } catch (error) {
     console.log(error);

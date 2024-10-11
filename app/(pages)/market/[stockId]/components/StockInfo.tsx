@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { IStock } from "@/app/actions/stock";
 import { checkUser } from "@/lib/checkUser";
-import { addCommas, cn } from "@/lib/utils";
+import { addCommas, cn, getLatestCandleStick } from "@/lib/utils";
 import React from "react";
 
 type Props = {
@@ -9,15 +9,9 @@ type Props = {
 };
 
 const StockInfo = async ({ stock }: Props) => {
-  const user = await checkUser();
-  const latestCandleStick = stock.candlesticks?.find(
-    (data) => data.simulationDay === user?.simulation?.currentDay! - 1
-  );
-  const nearLastestCandleStick = stock.candlesticks?.find(
-    (data) => data.simulationDay === user?.simulation?.currentDay! - 2
-  );
-  const change = latestCandleStick?.close! - nearLastestCandleStick?.close!;
-  const percentChange = (change / nearLastestCandleStick?.close!) * 100;
+  const latestCandleStick = getLatestCandleStick(stock.candlesticks!);
+  const change = latestCandleStick?.close! - latestCandleStick?.open!;
+  const percentChange = (change / latestCandleStick?.open!) * 100;
   return (
     <div>
       <div className="flex flex-col items-start gap-8 md:flex-row md:items-center">

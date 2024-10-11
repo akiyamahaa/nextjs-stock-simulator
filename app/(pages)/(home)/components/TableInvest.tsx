@@ -7,8 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import LogoCompany from "./LogoCompany";
-import InterestRate from "./InterestRate";
+import LogoCompany from "../../../../components/LogoCompany";
+import InterestRate from "../../../../components/InterestRate";
 import { getStocks } from "@/app/actions/stock";
 type Props = {};
 
@@ -45,7 +45,7 @@ const TableInvest = async (props: Props) => {
               <TableCell className="text-base text-gray-800">$3.355</TableCell>
               <TableCell className="text-base text-gray-800">$220.69</TableCell>
               <TableCell>
-                <InterestRate isUp={true} value={1.8} />
+                {/* <InterestRate isUp={true} value={1.8} /> */}
               </TableCell>
               <TableCell className="text-base text-gray-800">
                 $21,182.50

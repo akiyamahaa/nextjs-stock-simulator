@@ -13,7 +13,7 @@ model User {
   email       String  @unique
   name        String?
   imageUrl    String?
-  balance     Float   @default(1000)
+  balance     Float   @default(100000)
 
   trades     Trade[] // Relationship with Trades to calculate profit/loss
   simulation Simulation? // Each user has one mandatory Simulation
