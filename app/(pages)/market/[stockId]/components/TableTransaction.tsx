@@ -9,13 +9,12 @@ interface Props {
 
 const TableTransaction = async ({ stock }: Props) => {
   const trades = await getTrades(stock.id);
-  console.log("🚀 ~ TableTransaction ~ trades:", trades);
   return (
     <div className="flex flex-1 flex-col justify-between space-y-4">
       <h3 className="text-lg font-semibold text-gray-800">
         Transaction History
       </h3>
-      <div className="flex-1 space-y-2 max-h-72 overflow-y-scroll rounded-2xl border border-gray-200 p-4">
+      <div className="flex-1 space-y-2 max-h-72 overflow-y-scroll scrollbar-hide rounded-2xl border border-gray-200 p-4">
         {/* Transaction Row */}
         {trades?.map((trade) => (
           <div className="flex flex-row items-center" key={trade.id}>
@@ -30,16 +29,19 @@ const TableTransaction = async ({ stock }: Props) => {
               </p>
             </div>
             <div className="flex flex-1 flex-row items-center justify-between">
+              <p className="text-sm text-gray-400 min-w-14">
+                Day {trade.tradeDay}
+              </p>
               <p
                 className={cn(
-                  "text-sm capitalize",
+                  "text-sm capitalize min-w-10",
                   trade.tradeType === "buy" ? "text-primary" : "text-red-600"
                 )}
               >
                 {trade.tradeType}
               </p>
-              <p className="text-sm text-gray-400 ">{trade.quantity}</p>
-              <p className="text-sm text-gray-400 min-w-14">
+              <p className="text-sm text-gray-400 min-w-16">{trade.quantity}</p>
+              <p className="text-sm text-gray-400 min-w-16">
                 ${addCommas(Number(trade.totalPrice.toFixed(2)))}
               </p>
             </div>

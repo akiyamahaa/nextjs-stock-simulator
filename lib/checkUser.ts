@@ -24,7 +24,7 @@ export const checkUser = async () => {
       // Create a simulation if the user does not have one
       await db.simulation.create({
         data: {
-          currentDay: 1,
+          currentDay: 60,
           userId: loggedInUser.clerkUserId,
           startDate: new Date(),
         },
@@ -44,7 +44,7 @@ export const checkUser = async () => {
 
   const simulation = await db.simulation.create({
     data: {
-      currentDay: 1,
+      currentDay: 50,
       userId: newUser.clerkUserId,
       startDate: new Date(),
     },

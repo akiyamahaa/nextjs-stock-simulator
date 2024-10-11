@@ -1,13 +1,14 @@
 import React from "react";
-import AppleLogo from "@/public/images/apple.svg";
-import Image from "next/image";
+
 import { cn } from "@/lib/utils";
+import { IStock } from "@/app/actions/stock";
 
 type Props = {
   isHorizontal?: boolean;
+  stock: IStock;
 };
 
-const LogoCompany = ({ isHorizontal = true }: Props) => {
+const LogoCompany = ({ stock, isHorizontal = true }: Props) => {
   return (
     <div
       className={cn(
@@ -16,11 +17,11 @@ const LogoCompany = ({ isHorizontal = true }: Props) => {
       )}
     >
       <div className="flex flex-row items-center gap-3">
-        <Image src={AppleLogo} alt="logo" />
-        <p className="rounded-sm bg-gray-100 px-2 py-0.5">AAPL</p>
+        <img src={stock.symbol} alt="logo" className="w-10 h-10 rounded-full" />
+        <p className="rounded-sm bg-gray-100 px-2 py-0.5">{stock.shortName}</p>
       </div>
       <p className="text-left text-base font-semibold text-gray-800">
-        Apple Inc.
+        {stock.companyName}
       </p>
     </div>
   );

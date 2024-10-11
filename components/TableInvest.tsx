@@ -9,9 +9,12 @@ import {
 } from "@/components/ui/table";
 import LogoCompany from "./LogoCompany";
 import InterestRate from "./InterestRate";
+import { getStocks } from "@/app/actions/stock";
 type Props = {};
 
-const TableInvest = (props: Props) => {
+const TableInvest = async (props: Props) => {
+  const stocks = await getStocks();
+
   return (
     <div className="rounded-2xl bg-white p-6 shadow-app">
       <h1 className="text-3xl font-bold leading-9 text-gray-800">Invest</h1>
@@ -38,9 +41,7 @@ const TableInvest = (props: Props) => {
         <TableBody>
           {[1, 2, 3].map((elm) => (
             <TableRow key={elm}>
-              <TableCell>
-                <LogoCompany />
-              </TableCell>
+              <TableCell>{/* <LogoCompany /> */}</TableCell>
               <TableCell className="text-base text-gray-800">$3.355</TableCell>
               <TableCell className="text-base text-gray-800">$220.69</TableCell>
               <TableCell>

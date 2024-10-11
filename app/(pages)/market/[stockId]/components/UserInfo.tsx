@@ -1,11 +1,36 @@
 import { getStockHolding, IStock } from "@/app/actions/stock";
+import { getBuyTrades } from "@/app/actions/trade";
 import { checkUser } from "@/lib/checkUser";
-import { addCommas } from "@/lib/utils";
+import { addCommas, cn, getLatestCandleStick } from "@/lib/utils";
 import React from "react";
 
 const UserInfo = async ({ stock }: { stock: IStock }) => {
   const user = await checkUser();
-  const totalShared = await getStockHolding(stock.id);
+  const latestStick = getLatestCandleStick(
+    stock.candlesticks!,
+    user?.simulation?.currentDay!
+  );
+  const totalHoldingShared = await getStockHolding(stock.id);
+  const allBuyTrades = await getBuyTrades(stock.id);
+
+  if (!allBuyTrades) {
+    return null;
+  }
+  // Total Shares Purchased
+  const totalBuyShares = allBuyTrades?.reduce(
+    (total, currentTrade) => total + currentTrade.quantity,
+    0
+  );
+  // Weighted Average Purchase Price
+  const averageBuyPrice =
+    allBuyTrades!.reduce(
+      (total, current) => total + current.quantity * current.price,
+      0
+    ) / totalBuyShares!;
+  // Unrealied profit/loss
+  const unrealizedProfitLoss =
+    (latestStick?.close! - averageBuyPrice) * totalHoldingShared;
+
   return (
     <div className="flex flex-1 flex-row justify-between">
       <div className="space-y-1">
@@ -16,11 +41,20 @@ const UserInfo = async ({ stock }: { stock: IStock }) => {
       </div>
       <div className="space-y-1">
         <p className="text-base text-gray-800">Share</p>
-        <p className="text-base text-gray-400">{totalShared}</p>
+        <p className="text-base text-gray-400">
+          {totalHoldingShared.toFixed(2)}
+        </p>
       </div>
       <div className="space-y-1">
         <p className="text-base text-gray-800">Profit/Loss</p>
-        <p className="text-base text-gray-400">$0.00</p>
+        <p
+          className={cn(
+            "text-base",
+            unrealizedProfitLoss > 0 ? "text-green-500" : "text-red-500"
+          )}
+        >
+          ${unrealizedProfitLoss.toFixed(2)}
+        </p>
       </div>
     </div>
   );

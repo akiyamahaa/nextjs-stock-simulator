@@ -1,6 +1,7 @@
 import React from "react";
 import CardMarket from "./CardMarket";
 import { getStocks } from "@/app/actions/stock";
+import { checkUser } from "@/lib/checkUser";
 
 const ListMarket = async () => {
   const stocks = await getStocks();
@@ -13,10 +14,6 @@ const ListMarket = async () => {
           <CardMarket stock={stock} />
         </div>
       ))}
-      {/* <CardMarket />
-      <CardMarket />
-      <CardMarket />
-      <CardMarket /> */}
     </div>
   );
 };

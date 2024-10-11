@@ -38,15 +38,15 @@ model Stock {
 
 // Model for the Candlestick data (historical price movements)
 model CandlestickData {
-  id            Int      @id @default(autoincrement())
+  id            Int    @id @default(autoincrement())
   stockId       Int
-  stock         Stock    @relation(fields: [stockId], references: [id])
+  stock         Stock  @relation(fields: [stockId], references: [id])
   open          Float
   close         Float
   high          Float
   low           Float
   volume        Int
-  date          DateTime
+  date          String
   simulationDay Int // The simulated day in which this data is used
 }
 
