@@ -10,7 +10,7 @@ const ButtonNextDay = (props: Props) => {
     await nextDay();
   };
   return (
-    <Button variant={"outline"} onClick={handleNextDay}>
+    <Button className="w-full" variant={"outline"} onClick={handleNextDay}>
       Next Day
     </Button>
   );

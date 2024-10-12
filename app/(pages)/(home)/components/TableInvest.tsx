@@ -17,6 +17,10 @@ const TableInvest = async (props: Props) => {
   const allStockHolding = await getAllStockHolding();
   console.log("🚀 ~ TableInvest ~ allStockHolding:", allStockHolding);
 
+  if (allStockHolding.length === 0) {
+    return null;
+  }
+
   return (
     <div className="rounded-2xl bg-white p-6 shadow-app">
       <h1 className="text-3xl font-bold leading-9 text-gray-800">Invest</h1>
@@ -47,7 +51,6 @@ const TableInvest = async (props: Props) => {
                 elm.stock!.candlesticks!
               );
               const change = latestStick?.close! - latestStick?.open!;
-              const percentChange = (change / latestStick?.open!) * 100;
               return (
                 <TableRow key={elm.stock?.id}>
                   <TableCell>

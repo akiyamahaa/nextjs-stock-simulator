@@ -54,7 +54,7 @@ export interface IGetAllStockHolding {
   unrealizedProfitLoss: number;
 }
 
-const getAllStockHolding = async (): Promise<IGetAllStockHolding[] | null> => {
+const getAllStockHolding = async (): Promise<IGetAllStockHolding[]> => {
   const { userId } = auth();
   try {
     const trades = await db.trade.findMany({
@@ -99,7 +99,7 @@ const getAllStockHolding = async (): Promise<IGetAllStockHolding[] | null> => {
     return allStockInfo;
   } catch (error) {
     console.log(error);
-    return null;
+    return [];
   }
 };
 

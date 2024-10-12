@@ -28,7 +28,9 @@ const MarketDetailPage = async ({
       <div className="space-y-12">
         <div className="flex flex-col items-start gap-8 md:flex-row md:justify-between">
           <StockInfo stock={stock} />
-          <ButtonNextDay />
+          <div>
+            <ButtonNextDay />
+          </div>
         </div>
         <div className="h-[500px]">
           <DynamicCandle data={stock.candlesticks!} />

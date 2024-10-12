@@ -19,11 +19,12 @@ const UserInfo = async ({ stock }: { stock: IStock }) => {
     0
   );
   // Weighted Average Purchase Price
-  const averageBuyPrice =
-    allBuyTrades!.reduce(
-      (total, current) => total + current.quantity * current.price,
-      0
-    ) / totalBuyShares!;
+  const averageBuyPrice = totalBuyShares
+    ? allBuyTrades!.reduce(
+        (total, current) => total + current.quantity * current.price,
+        0
+      ) / totalBuyShares!
+    : 0;
   // Unrealied profit/loss
   const unrealizedProfitLoss =
     (latestStick?.close! - averageBuyPrice) * totalHoldingShared;

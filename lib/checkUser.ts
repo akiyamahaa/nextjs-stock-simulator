@@ -1,5 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "./db";
+import { INITIAL_DAY } from "@/constants/utils";
 
 export const checkUser = async () => {
   const user = await currentUser();
@@ -24,7 +25,7 @@ export const checkUser = async () => {
       // Create a simulation if the user does not have one
       await db.simulation.create({
         data: {
-          currentDay: 60,
+          currentDay: INITIAL_DAY,
           userId: loggedInUser.clerkUserId,
           startDate: new Date(),
         },
@@ -44,7 +45,7 @@ export const checkUser = async () => {
 
   const simulation = await db.simulation.create({
     data: {
-      currentDay: 50,
+      currentDay: INITIAL_DAY,
       userId: newUser.clerkUserId,
       startDate: new Date(),
     },

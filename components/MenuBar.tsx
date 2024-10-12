@@ -13,7 +13,7 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { useUser } from "@clerk/nextjs";
+import { SignedOut, useUser } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
 interface Props {
@@ -72,16 +72,14 @@ const MenuBar = ({ isDarkMode }: Props) => {
           ))}
         </DropdownMenuGroup>
         <DropdownMenuItem>
-          {!isSignedIn && (
-            <>
-              <DropdownMenuSeparator />
-              <Link href="/sign-in">
-                <Button className="px-6 text-base font-medium text-white">
-                  Sign in
-                </Button>
-              </Link>
-            </>
-          )}
+          <SignedOut>
+            <DropdownMenuSeparator />
+            <Link href="/sign-in">
+              <Button className="px-6 text-base font-medium text-white">
+                Sign in
+              </Button>
+            </Link>
+          </SignedOut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

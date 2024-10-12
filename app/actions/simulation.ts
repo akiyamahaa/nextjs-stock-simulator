@@ -1,5 +1,6 @@
 "use server";
 
+import { INITIAL_DAY, INTIAL_BALANCE } from "@/constants/utils";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
@@ -21,4 +22,30 @@ const nextDay = async () => {
   }
 };
 
-export { nextDay };
+const resetDay = async () => {
+  try {
+    const { userId } = auth();
+    // Delete all trades associated with this user
+    await db.trade.deleteMany({
+      where: { userId: userId! },
+    });
+    // Reset simulation currentDay to 1
+    await db.simulation.update({
+      where: { userId: userId! },
+      data: {
+        currentDay: INITIAL_DAY,
+      },
+    });
+    await db.user.update({
+      where: { clerkUserId: userId! },
+      data: {
+        balance: INTIAL_BALANCE,
+      },
+    });
+    revalidatePath("/");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { nextDay, resetDay };

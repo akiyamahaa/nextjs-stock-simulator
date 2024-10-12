@@ -1,3 +1,4 @@
+import { INITIAL_DAY } from "@/constants/utils";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
@@ -16,7 +17,7 @@ export const POST = async () => {
     await db.simulation.update({
       where: { userId: userId },
       data: {
-        currentDay: 1, // Reset to day 1
+        currentDay: INITIAL_DAY,
       },
     });
     return new NextResponse("User reset successfully", { status: 200 });
