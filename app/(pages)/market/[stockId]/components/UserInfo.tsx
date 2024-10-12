@@ -1,4 +1,4 @@
-import { getStockHolding, IStock } from "@/app/actions/stock";
+import { getStockHoldingById, IStock } from "@/app/actions/stock";
 import { getBuyTrades } from "@/app/actions/trade";
 import { checkUser } from "@/lib/checkUser";
 import { addCommas, cn, getLatestCandleStick } from "@/lib/utils";
@@ -7,7 +7,7 @@ import React from "react";
 const UserInfo = async ({ stock }: { stock: IStock }) => {
   const user = await checkUser();
   const latestStick = getLatestCandleStick(stock.candlesticks!);
-  const totalHoldingShared = await getStockHolding(stock.id);
+  const totalHoldingShared = await getStockHoldingById(stock.id);
   const allBuyTrades = await getBuyTrades(stock.id);
 
   if (!allBuyTrades) {

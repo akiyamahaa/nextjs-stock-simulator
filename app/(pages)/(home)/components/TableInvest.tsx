@@ -9,11 +9,13 @@ import {
 } from "@/components/ui/table";
 import LogoCompany from "../../../../components/LogoCompany";
 import InterestRate from "../../../../components/InterestRate";
-import { getStocks } from "@/app/actions/stock";
+import { getAllStockHolding } from "@/app/actions/trade";
+import { getLatestCandleStick } from "@/lib/utils";
 type Props = {};
 
 const TableInvest = async (props: Props) => {
-  const stocks = await getStocks();
+  const allStockHolding = await getAllStockHolding();
+  console.log("🚀 ~ TableInvest ~ allStockHolding:", allStockHolding);
 
   return (
     <div className="rounded-2xl bg-white p-6 shadow-app">
@@ -25,13 +27,13 @@ const TableInvest = async (props: Props) => {
               Name
             </TableHead>
             <TableHead className="text-base font-semibold text-gray-400">
-              Market Cap
+              Total Shares
             </TableHead>
             <TableHead className="text-base font-semibold text-gray-400">
-              Price
+              Current Price
             </TableHead>
             <TableHead className="text-base font-semibold text-gray-400">
-              Change
+              Profit/Loss
             </TableHead>
             <TableHead className="text-base font-semibold text-gray-400">
               Investment
@@ -39,19 +41,34 @@ const TableInvest = async (props: Props) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {[1, 2, 3].map((elm) => (
-            <TableRow key={elm}>
-              <TableCell>{/* <LogoCompany /> */}</TableCell>
-              <TableCell className="text-base text-gray-800">$3.355</TableCell>
-              <TableCell className="text-base text-gray-800">$220.69</TableCell>
-              <TableCell>
-                {/* <InterestRate isUp={true} value={1.8} /> */}
-              </TableCell>
-              <TableCell className="text-base text-gray-800">
-                $21,182.50
-              </TableCell>
-            </TableRow>
-          ))}
+          {allStockHolding &&
+            allStockHolding.map((elm) => {
+              const latestStick = getLatestCandleStick(
+                elm.stock!.candlesticks!
+              );
+              const change = latestStick?.close! - latestStick?.open!;
+              const percentChange = (change / latestStick?.open!) * 100;
+              return (
+                <TableRow key={elm.stock?.id}>
+                  <TableCell>
+                    <LogoCompany stock={elm.stock!} />
+                  </TableCell>
+                  <TableCell className="text-base text-gray-800">
+                    {elm.stockHolding}
+                  </TableCell>
+                  <TableCell className="text-base text-gray-800">
+                    ${latestStick?.close}
+                  </TableCell>
+                  <TableCell>
+                    {/* TODO: Change Logic here */}
+                    <InterestRate value={elm.unrealizedProfitLoss} />
+                  </TableCell>
+                  <TableCell className="text-base text-gray-800">
+                    ${(latestStick?.close! * elm.stockHolding).toFixed(2)}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
         </TableBody>
       </Table>
     </div>

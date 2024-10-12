@@ -26,7 +26,6 @@ const CardMarket = ({ stock }: Props) => {
           </div>
           <div className="flex flex-row justify-between">
             <p className="text-sm text-gray-400">Change</p>
-            {/* TODO: Add Formula  */}
             <div className="text-sm text-gray-800">
               <InterestRate value={percentChange} />
             </div>

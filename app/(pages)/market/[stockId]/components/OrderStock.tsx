@@ -19,7 +19,6 @@ const OrderStock = ({ stock }: Props) => {
   const [quantity, setQuantity] = useState(0);
 
   const createTrade = async () => {
-    // TODO: Check enough balance, and enough quantity to buy sell
     try {
       await axios.post(`/api/trade/${stock.id}`, {
         tradeType: mode, // 'buy' or 'sell'

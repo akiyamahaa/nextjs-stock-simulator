@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { IStock } from "@/app/actions/stock";
-import { checkUser } from "@/lib/checkUser";
 import { addCommas, cn, getLatestCandleStick } from "@/lib/utils";
 import React from "react";
 
@@ -34,7 +33,6 @@ const StockInfo = async ({ stock }: Props) => {
               ${addCommas(Number(latestCandleStick?.close))}
             </p>
             <div className="flex flex-row items-center gap-2">
-              {/* TODO: Add Formula */}
               <p
                 className={cn(
                   "text-2xl font-semibold",

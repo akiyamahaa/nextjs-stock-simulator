@@ -45,7 +45,6 @@ async function getLatestPosts(): Promise<IPost[] | null> {
     if (!userSimulation) {
       throw new Error("Simulation not found for the user");
     }
-    console.log("🚀 ~ getLatestPosts ~ userDay:", userSimulation);
 
     const latestPosts = await db.posts.findMany({
       where: {

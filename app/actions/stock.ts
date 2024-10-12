@@ -1,6 +1,8 @@
 import { ETradeMode } from "@/constants/utils";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
+import { getBuyTrades } from "./trade";
+import { getLatestCandleStick } from "@/lib/utils";
 
 export interface ICandleStick {
   id: number;
@@ -99,7 +101,7 @@ async function getStockById(stockId: number): Promise<IStock | null> {
   }
 }
 
-const getStockHolding = async (stockId: number) => {
+const getStockHoldingById = async (stockId: number) => {
   const { userId } = auth();
   const userTrades = await db.trade.findMany({
     where: {
@@ -123,4 +125,4 @@ const getStockHolding = async (stockId: number) => {
   return currentStockHoldings;
 };
 
-export { getStocks, getStockById, getStockHolding };
+export { getStocks, getStockById, getStockHoldingById };

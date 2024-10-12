@@ -1,4 +1,4 @@
-import { getStockHolding } from "@/app/actions/stock";
+import { getStockHoldingById } from "@/app/actions/stock";
 import { ETradeMode } from "@/constants/utils";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
@@ -41,7 +41,7 @@ export const POST = async (
       }
       updatedBalance = user.balance - totalTradeValue;
     } else if (tradeType === ETradeMode.SELL) {
-      const currentStockHoldings = await getStockHolding(
+      const currentStockHoldings = await getStockHoldingById(
         parseInt(params.stockId)
       );
       if (currentStockHoldings < quantity) {

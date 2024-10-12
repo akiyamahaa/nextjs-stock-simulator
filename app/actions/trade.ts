@@ -2,6 +2,8 @@ import { ETradeMode } from "@/constants/utils";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { Stock, Trade } from "@prisma/client";
+import { getStockById, getStockHoldingById, IStock } from "./stock";
+import { getLatestCandleStick } from "@/lib/utils";
 
 export interface ITrade extends Trade {
   stock: Stock;
@@ -46,6 +48,61 @@ const getBuyTrades = async (stockId: number): Promise<ITrade[] | null> => {
   }
 };
 
+export interface IGetAllStockHolding {
+  stock: IStock | null;
+  stockHolding: number;
+  unrealizedProfitLoss: number;
+}
+
+const getAllStockHolding = async (): Promise<IGetAllStockHolding[] | null> => {
+  const { userId } = auth();
+  try {
+    const trades = await db.trade.findMany({
+      where: {
+        userId: userId!,
+      },
+      select: {
+        stockId: true,
+      },
+    });
+
+    const uniqueStockIds: number[] = trades.reduce((acc: any, current: any) => {
+      if (!acc.includes(current.stockId)) {
+        acc.push(current.stockId);
+      }
+      return acc;
+    }, []);
+
+    const allStockInfo = await Promise.all(
+      uniqueStockIds.map(async (stockId) => {
+        const stock = await getStockById(stockId);
+        const stockHolding = await getStockHoldingById(stockId);
+        const latestStick = getLatestCandleStick(stock!.candlesticks!);
+        const allBuyTrades = await getBuyTrades(stock!.id);
+        // Total Shares Purchased
+        const totalBuyShares = allBuyTrades?.reduce(
+          (total, currentTrade) => total + currentTrade.quantity,
+          0
+        );
+        // Weighted Average Purchase Price
+        const averageBuyPrice =
+          allBuyTrades!.reduce(
+            (total, current) => total + current.quantity * current.price,
+            0
+          ) / totalBuyShares!;
+        // Unrealied profit/loss
+        const unrealizedProfitLoss =
+          (latestStick?.close! - averageBuyPrice) * stockHolding;
+        return { stock, stockHolding, unrealizedProfitLoss };
+      })
+    );
+    return allStockInfo;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export interface IInterestAndLoss {
   interest: number;
   loss: number;
@@ -67,7 +124,6 @@ const getInterestAndLossTrades = async (): Promise<IInterestAndLoss> => {
       acc[trade.stockId][trade.tradeType].push(trade);
       return acc;
     }, {});
-    console.log("🚀 ~ tradesByStock ~ tradesByStock:", tradesByStock);
 
     let interest = 0;
     let loss = 0;
@@ -98,4 +154,9 @@ const getInterestAndLossTrades = async (): Promise<IInterestAndLoss> => {
   }
 };
 
-export { getTrades, getBuyTrades, getInterestAndLossTrades };
+export {
+  getTrades,
+  getBuyTrades,
+  getInterestAndLossTrades,
+  getAllStockHolding,
+};
