@@ -16,17 +16,9 @@ const NewDetailPage = async ({ params }: { params: { newId: string } }) => {
         <h1 className="text-5xl font-bold text-gray-800">{post?.title}</h1>
         {/* <p className="text-base text-gray-400">Sep 21, 202408:27 UTC</p> */}
       </div>
+      {/* Content */}
       <div>
-        <p className="text-lg font-semibold text-gray-800">
-          {post.description}
-        </p>
-      </div>
-      <div className="space-y-12">
-        <img src={post.imageUrl} alt="image-new" className="w-full" />
-        {/* Content */}
-        <div>
-          <p className="text-base text-gray-800">{post.content}</p>
-        </div>
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </div>
     </div>
   );

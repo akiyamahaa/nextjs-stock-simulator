@@ -76,7 +76,6 @@ model Simulation {
 model Posts {
   id            Int    @id @default(autoincrement())
   title         String
-  description   String
   imageUrl      String
   content       String
   stockId       Int
