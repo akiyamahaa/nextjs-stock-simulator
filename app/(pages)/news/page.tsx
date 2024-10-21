@@ -2,9 +2,7 @@ import { getPosts } from "@/app/actions/posts";
 import ListNew from "@/components/ListNew";
 import React from "react";
 
-type Props = {};
-
-const NewsPage = async (props: Props) => {
+const NewsPage = async () => {
   const posts = await getPosts();
 
   return (

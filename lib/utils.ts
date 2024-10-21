@@ -18,7 +18,7 @@ export const getLatestCandleStick = (
     ...candleLists.map((candle) => candle.simulationDay)
   );
   const last = candleLists.find(
-    (item) => item.simulationDay == latestSimulationDay - numDay
+    (item) => item.simulationDay === latestSimulationDay - numDay
   );
   return last;
 };

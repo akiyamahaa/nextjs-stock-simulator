@@ -11,9 +11,8 @@ import LogoCompany from "../../../../components/LogoCompany";
 import InterestRate from "../../../../components/InterestRate";
 import { getAllStockHolding } from "@/app/actions/trade";
 import { getLatestCandleStick } from "@/lib/utils";
-type Props = {};
 
-const TableInvest = async (props: Props) => {
+const TableInvest = async () => {
   const allStockHolding = await getAllStockHolding();
   console.log("🚀 ~ TableInvest ~ allStockHolding:", allStockHolding);
 
@@ -50,7 +49,6 @@ const TableInvest = async (props: Props) => {
               const latestStick = getLatestCandleStick(
                 elm.stock!.candlesticks!
               );
-              const change = latestStick?.close! - latestStick?.open!;
               return (
                 <TableRow key={elm.stock?.id}>
                   <TableCell>
@@ -67,7 +65,10 @@ const TableInvest = async (props: Props) => {
                     <InterestRate value={elm.unrealizedProfitLoss} />
                   </TableCell>
                   <TableCell className="text-base text-gray-800">
-                    ${(latestStick?.close! * elm.stockHolding).toFixed(2)}
+                    $
+                    {latestStick?.close
+                      ? (latestStick?.close * elm.stockHolding).toFixed(2)
+                      : 0}
                   </TableCell>
                 </TableRow>
               );

@@ -3,9 +3,7 @@ import { resetDay } from "@/app/actions/simulation";
 import { Button } from "@/components/ui/button";
 import React from "react";
 
-type Props = {};
-
-const ButtonResetGame = (props: Props) => {
+const ButtonResetGame = () => {
   const handleReset = async () => {
     await resetDay();
   };

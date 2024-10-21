@@ -1,6 +1,6 @@
 import React from "react";
 import CardNew from "./CardNew";
-import { getPosts, IPost } from "@/app/actions/posts";
+import { IPost } from "@/app/actions/posts";
 import { checkUser } from "@/lib/checkUser";
 
 interface Props {

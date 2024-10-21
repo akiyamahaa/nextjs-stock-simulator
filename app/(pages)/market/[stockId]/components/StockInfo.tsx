@@ -9,8 +9,12 @@ type Props = {
 
 const StockInfo = async ({ stock }: Props) => {
   const latestCandleStick = getLatestCandleStick(stock.candlesticks!);
-  const change = latestCandleStick?.close! - latestCandleStick?.open!;
-  const percentChange = (change / latestCandleStick?.open!) * 100;
+  const change = latestCandleStick
+    ? latestCandleStick?.close - latestCandleStick?.open
+    : 0;
+  const percentChange = latestCandleStick
+    ? (change / latestCandleStick?.open) * 100
+    : 0;
   return (
     <div>
       <div className="flex flex-col items-start gap-8 md:flex-row md:items-center">

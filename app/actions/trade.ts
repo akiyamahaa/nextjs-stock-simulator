@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ETradeMode } from "@/constants/utils";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
@@ -15,7 +16,7 @@ const getTrades = async (stockId: number): Promise<ITrade[] | null> => {
     const trades = await db.trade.findMany({
       where: {
         userId: userId!,
-        stockId: stockId,
+        stockId,
       },
       include: {
         stock: true,
@@ -34,7 +35,7 @@ const getBuyTrades = async (stockId: number): Promise<ITrade[] | null> => {
     const trades = await db.trade.findMany({
       where: {
         userId: userId!,
-        stockId: stockId,
+        stockId,
         tradeType: ETradeMode.BUY,
       },
       include: {
@@ -91,8 +92,9 @@ const getAllStockHolding = async (): Promise<IGetAllStockHolding[]> => {
             0
           ) / totalBuyShares!;
         // Unrealied profit/loss
-        const unrealizedProfitLoss =
-          (latestStick?.close! - averageBuyPrice) * stockHolding;
+        const unrealizedProfitLoss = latestStick
+          ? (latestStick.close - averageBuyPrice) * stockHolding
+          : 0;
         return { stock, stockHolding, unrealizedProfitLoss };
       })
     );

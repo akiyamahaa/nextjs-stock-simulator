@@ -13,7 +13,7 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { SignedOut, useUser } from "@clerk/nextjs";
+import { SignedOut } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
 interface Props {
@@ -21,7 +21,6 @@ interface Props {
 }
 const MenuBar = ({ isDarkMode }: Props) => {
   const pathname = usePathname();
-  const { isSignedIn } = useUser();
   const [open, setOpen] = useState(false); // Add state for dropdown
 
   const routes = [

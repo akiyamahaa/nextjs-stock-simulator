@@ -11,11 +11,11 @@ export const POST = async () => {
     }
     // Delete all trades associated with this user
     await db.trade.deleteMany({
-      where: { userId: userId },
+      where: { userId },
     });
     // Reset simulation currentDay to 1
     await db.simulation.update({
-      where: { userId: userId },
+      where: { userId },
       data: {
         currentDay: INITIAL_DAY,
       },

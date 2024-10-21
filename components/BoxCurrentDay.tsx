@@ -36,7 +36,7 @@ const BoxCurrentDay = ({ isDarkMode, userDay }: Props) => {
             Day {userDay}
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white rounded-lg">
+        <DropdownMenuContent className="rounded-lg bg-white">
           <DropdownMenuLabel className="text-center text-sm font-bold">
             Simulation Day
           </DropdownMenuLabel>

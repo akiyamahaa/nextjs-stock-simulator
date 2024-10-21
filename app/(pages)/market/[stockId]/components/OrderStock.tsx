@@ -28,6 +28,7 @@ const OrderStock = ({ stock }: Props) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       router.refresh();
       toast.success(`${mode.toUpperCase()} SUCCESSFULLY`);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.response?.data || error.message);
     }

@@ -6,7 +6,6 @@ import { auth } from "@clerk/nextjs/server";
 export interface IPost {
   id: number;
   content: string;
-  description: string;
   title: string;
   imageUrl: string;
   stockId: number;
@@ -36,7 +35,7 @@ async function getLatestPosts(): Promise<IPost[] | null> {
   try {
     const userSimulation = await db.simulation.findUnique({
       where: {
-        userId: userId,
+        userId,
       },
       select: {
         currentDay: true, // Select only the current simulation day

@@ -15,6 +15,7 @@ type Props = {
 const CardNew = ({ post, userDay }: Props) => {
   const lock = post.simulationDay > userDay;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleClick = (e: any) => {
     if (lock) {
       e.preventDefault();
@@ -23,16 +24,16 @@ const CardNew = ({ post, userDay }: Props) => {
   };
   return (
     <Link href={`/news/${post.id}`} onClick={handleClick}>
-      <div className="rounded-2xl bg-white shadow-app relative">
+      <div className="relative rounded-2xl bg-white shadow-app">
         {lock && (
-          <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-50 rounded-2xl z-20 opacity-50" />
+          <div className="absolute inset-0 z-20 rounded-2xl bg-gray-50 opacity-50" />
         )}
 
-        <div className="h-48 w-full relative ">
+        <div className="relative h-48 w-full ">
           <img
             src={post.imageUrl}
             alt="image"
-            className="w-full h-full rounded-t-2xl object-cover"
+            className="size-full rounded-t-2xl object-cover"
           />
           {/* label lock  */}
           <div
@@ -66,9 +67,6 @@ const CardNew = ({ post, userDay }: Props) => {
           <h1 className="line-clamp-1 text-base font-semibold text-gray-800">
             {post.title}
           </h1>
-          <p className="line-clamp-2 text-base text-gray-400">
-            {post.description}
-          </p>
         </div>
       </div>
     </Link>

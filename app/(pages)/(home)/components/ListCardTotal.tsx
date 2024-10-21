@@ -6,13 +6,15 @@ import React from "react";
 const ListCardTotal = async () => {
   const user = await checkUser();
   const { interest, loss } = await getInterestAndLossTrades();
-  const changeRateAsset = ((user?.balance! - 100000) / 100000) * 100;
+  const changeRateAsset = user?.balance
+    ? ((user?.balance - 100000) / 100000) * 100
+    : 0;
 
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
       <CardTotal
         title="Total Asset"
-        amount={user?.balance!}
+        amount={user?.balance || 0}
         type={0}
         interestRate={changeRateAsset}
       />

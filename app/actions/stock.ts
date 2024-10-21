@@ -1,8 +1,6 @@
 import { ETradeMode } from "@/constants/utils";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { getBuyTrades } from "./trade";
-import { getLatestCandleStick } from "@/lib/utils";
 
 export interface ICandleStick {
   id: number;
@@ -106,7 +104,7 @@ const getStockHoldingById = async (stockId: number) => {
   const userTrades = await db.trade.findMany({
     where: {
       userId: userId!,
-      stockId: stockId,
+      stockId,
     },
   });
   let totalBought = 0;

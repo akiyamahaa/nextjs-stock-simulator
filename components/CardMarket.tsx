@@ -11,8 +11,8 @@ type Props = {
 
 const CardMarket = ({ stock }: Props) => {
   const latestStick = getLatestCandleStick(stock.candlesticks!);
-  const change = latestStick?.close! - latestStick?.open!;
-  const percentChange = (change / latestStick?.open!) * 100;
+  const change = latestStick ? latestStick?.close - latestStick?.open : 0;
+  const percentChange = latestStick ? (change / latestStick?.open) * 100 : 0;
   return (
     <Link href={`/market/${stock.id}`}>
       <div className="flex flex-col items-start rounded-2xl bg-white p-6 shadow-app">
