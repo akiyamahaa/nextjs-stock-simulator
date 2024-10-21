@@ -1,7 +1,4 @@
-import React from "react";
-
-
-const AboutPage = () => {
+export default function AboutPage() {
   return (
     <div className="space-y-8">
       <h1 className="text-4xl font-bold text-gray-800">About Us</h1>
@@ -45,6 +42,4 @@ const AboutPage = () => {
       </p>
     </div>
   );
-};
-
-export default AboutPage;
+}
