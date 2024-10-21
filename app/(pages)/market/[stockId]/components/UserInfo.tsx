@@ -26,8 +26,9 @@ const UserInfo = async ({ stock }: { stock: IStock }) => {
       ) / totalBuyShares!
     : 0;
   // Unrealied profit/loss
-  const unrealizedProfitLoss =
-    (latestStick?.close! - averageBuyPrice) * totalHoldingShared;
+  const unrealizedProfitLoss = latestStick
+    ? (latestStick?.close - averageBuyPrice) * totalHoldingShared
+    : 0;
 
   return (
     <div className="flex flex-1 flex-row justify-between">

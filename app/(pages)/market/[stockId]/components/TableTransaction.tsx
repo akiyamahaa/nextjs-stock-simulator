@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { getTrades } from "@/app/actions/trade";
 import { IStock } from "@/app/actions/stock";
@@ -14,7 +15,7 @@ const TableTransaction = async ({ stock }: Props) => {
       <h3 className="text-lg font-semibold text-gray-800">
         Transaction History
       </h3>
-      <div className="flex-1 space-y-2 max-h-72 overflow-y-scroll scrollbar-hide rounded-2xl border border-gray-200 p-4">
+      <div className="max-h-72 flex-1 space-y-2 overflow-y-scroll rounded-2xl border border-gray-200 p-4 scrollbar-hide">
         {/* Transaction Row */}
         {trades?.map((trade) => (
           <div className="flex flex-row items-center" key={trade.id}>
@@ -29,7 +30,7 @@ const TableTransaction = async ({ stock }: Props) => {
               </p>
             </div>
             <div className="flex flex-1 flex-row items-center justify-between">
-              <p className="text-sm text-gray-400 min-w-14">
+              <p className="min-w-14 text-sm text-gray-400">
                 Day {trade.tradeDay}
               </p>
               <p
@@ -40,8 +41,8 @@ const TableTransaction = async ({ stock }: Props) => {
               >
                 {trade.tradeType}
               </p>
-              <p className="text-sm text-gray-400 min-w-16">{trade.quantity}</p>
-              <p className="text-sm text-gray-400 min-w-16">
+              <p className="min-w-16 text-sm text-gray-400">{trade.quantity}</p>
+              <p className="min-w-16 text-sm text-gray-400">
                 ${addCommas(Number(trade.totalPrice.toFixed(2)))}
               </p>
             </div>
