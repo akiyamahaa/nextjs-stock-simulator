@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance Simulation System
 
-## Getting Started
+The Finance Simulation System is a trading platform designed to help users practice stock trading in a simulated environment. With a range of features for managing trades and portfolios, users can experience real-life stock market scenarios without the risk of actual financial loss.
 
-First, run the development server:
+## Key Features:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **User Registration and Login**: Users can easily sign up and log in using their Gmail or GitHub accounts, providing a seamless and secure onboarding experience.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Simulated Trading**:
+    - **Stock List Display**: Users can browse through a list of stocks from various companies, providing a comprehensive view of the market.
+    - **Detailed Stock Information**: Each stock has its own page, which includes:
+        - A chart displaying the stock's value over a specific time period.
+        - A table showing buy and sell statistics at different times.
+        - Functionality for users to buy or sell stocks by inputting the number of shares.
+        - A time-lapse feature to fast-forward to the next trading day, week, or month.
+        - A section featuring related news and events that could impact the stock.
+ 
+- **Portfolio Management**:
+    - **Current Holdings**: Users can view the current stock holdings in their portfolio.
+    - **Transaction History**: The system keeps a record of all previously purchased and sold stocks.
+    - **Profit/Loss Display**: Users can track the percentage of profit or loss for each stock in their portfolio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **News and Market Updates**: The app keeps users informed with regular updates on financial news, economic events, and market factors that may influence the trading environment.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack:
 
-## Learn More
+- **Next.js**: A powerful React framework used for building the front-end interface of the application.
+- **Prisma**: An ORM used for managing and querying the database efficiently.
+- **Supabase**: A backend solution providing real-time database features and user authentication.
+- **Clerk Auth**: A modern authentication system that allows users to log in via Gmail or GitHub.
+- **Tailwind CSS**: A utility-first CSS framework used to build responsive and modern user interfaces.
+- **Shadcn UI**: A collection of UI components integrated with Tailwind for creating interactive elements.
 
-To learn more about Next.js, take a look at the following resources:
+**[Experience the Website here]([#](https://finance-simulation.vercel.app/))**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This system offers a realistic trading experience while helping users enhance their understanding of stock market dynamics and portfolio management.
