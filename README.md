@@ -31,6 +31,6 @@ The Finance Simulation System is a trading platform designed to help users pract
 - **Tailwind CSS**: A utility-first CSS framework used to build responsive and modern user interfaces.
 - **Shadcn UI**: A collection of UI components integrated with Tailwind for creating interactive elements.
 
-**[Experience the Website here]([#](https://finance-simulation.vercel.app/))**
+**[Experience the Website here]([#](https://finance-simulation.vercel.app/)**
 
 This system offers a realistic trading experience while helping users enhance their understanding of stock market dynamics and portfolio management.
