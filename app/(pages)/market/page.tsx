@@ -1,5 +1,4 @@
 import ListMarket from "@/components/ListMarket";
-import React from "react";
 
 const MarketPage = () => {
   return (

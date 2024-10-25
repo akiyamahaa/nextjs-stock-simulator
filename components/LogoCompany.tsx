@@ -1,6 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
-
 import { cn } from "@/lib/utils";
 import { IStock } from "@/app/actions/stock";
 

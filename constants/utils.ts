@@ -6,4 +6,4 @@ export enum ETradeMode {
 
 export const INITIAL_DAY = 30;
 
-export const INTIAL_BALANCE = 1000;
+export const INITIAL_BALANCE = 1000;

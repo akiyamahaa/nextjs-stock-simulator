@@ -3,8 +3,16 @@ import ListMarket from "@/components/ListMarket";
 import ListNew from "@/components/ListNew";
 import { SignedIn } from "@clerk/nextjs";
 import TableInvest from "./components/TableInvest";
+import { checkUser } from "@/lib/checkUser";
 
 export default async function Home() {
+  const user = await checkUser();
+  if (!user) {
+    console.log("go here");
+    // Handle user not found, maybe redirect or return early
+    return <div>User not found</div>;
+  }
+
   return (
     <div className="space-y-16">
       <SignedIn>

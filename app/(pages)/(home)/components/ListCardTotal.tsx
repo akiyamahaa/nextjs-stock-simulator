@@ -1,14 +1,13 @@
 import { getInterestAndLossTrades } from "@/app/actions/trade";
 import CardTotal from "@/components/CardTotal";
-import { INTIAL_BALANCE } from "@/constants/utils";
+import { INITIAL_BALANCE } from "@/constants/utils";
 import { checkUser } from "@/lib/checkUser";
-import React from "react";
 
 const ListCardTotal = async () => {
   const user = await checkUser();
   const { interest, loss } = await getInterestAndLossTrades();
   const changeRateAsset = user?.balance
-    ? ((user?.balance - INTIAL_BALANCE) / INTIAL_BALANCE) * 100
+    ? ((user?.balance - INITIAL_BALANCE) / INITIAL_BALANCE) * 100
     : 0;
 
   return (
@@ -21,7 +20,7 @@ const ListCardTotal = async () => {
       />
       <CardTotal title="Total Interest" amount={interest} type={1} />
       <CardTotal title="Total Loss" amount={loss} type={2} />
-      <CardTotal title="Total Capital" amount={INTIAL_BALANCE} type={3} />
+      <CardTotal title="Total Capital" amount={INITIAL_BALANCE} type={3} />
     </div>
   );
 };

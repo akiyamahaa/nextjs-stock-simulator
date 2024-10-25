@@ -1,6 +1,6 @@
 "use server";
 
-import { INITIAL_DAY, INTIAL_BALANCE } from "@/constants/utils";
+import { INITIAL_DAY, INITIAL_BALANCE } from "@/constants/utils";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
@@ -39,7 +39,7 @@ const resetDay = async () => {
     await db.user.update({
       where: { clerkUserId: userId! },
       data: {
-        balance: INTIAL_BALANCE,
+        balance: INITIAL_BALANCE,
       },
     });
     revalidatePath("/");

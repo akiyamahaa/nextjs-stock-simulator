@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { ICandleStick } from "@/app/actions/stock";
 import {
   IgrFinancialChart,

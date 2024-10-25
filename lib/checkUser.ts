@@ -1,6 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "./db";
-import { INITIAL_DAY, INTIAL_BALANCE } from "@/constants/utils";
+import { INITIAL_BALANCE, INITIAL_DAY } from "@/constants/utils";
 
 export const checkUser = async () => {
   const user = await currentUser();
@@ -10,7 +10,7 @@ export const checkUser = async () => {
   }
 
   // First check if the user already exists in the database
-  const loggedInUser = await db.user.findUnique({
+  let loggedInUser = await db.user.findUnique({
     where: {
       clerkUserId: user.id,
     },
@@ -20,6 +20,16 @@ export const checkUser = async () => {
   });
 
   if (loggedInUser) {
+    if (!loggedInUser.simulation) {
+      const simulation = await db.simulation.create({
+        data: {
+          currentDay: INITIAL_DAY,
+          userId: loggedInUser.clerkUserId,
+          startDate: new Date(),
+        },
+      });
+      return { ...loggedInUser, simulation };
+    }
     return loggedInUser;
   }
 
@@ -31,7 +41,7 @@ export const checkUser = async () => {
         name: `${user.firstName} ${user.lastName}`,
         imageUrl: user.imageUrl,
         email: user.emailAddresses[0].emailAddress,
-        balance: INTIAL_BALANCE,
+        balance: INITIAL_BALANCE,
       },
     });
 
@@ -46,6 +56,22 @@ export const checkUser = async () => {
     return { ...newUser, simulation };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.log(error); // Throw other errors for debugging purposes
+    if (
+      error.code === "P2002" &&
+      error.meta &&
+      error.meta.target.includes("clerkUserId")
+    ) {
+      // Handle duplicate entry by retrieving the existing user again
+      loggedInUser = await db.user.findUnique({
+        where: {
+          clerkUserId: user.id,
+        },
+        include: {
+          simulation: true,
+        },
+      });
+      return loggedInUser;
+    }
+    throw error; // Throw other errors for debugging purposes
   }
 };

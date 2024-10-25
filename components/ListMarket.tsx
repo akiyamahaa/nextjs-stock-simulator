@@ -1,4 +1,3 @@
-import React from "react";
 import CardMarket from "./CardMarket";
 import { getStocks } from "@/app/actions/stock";
 

@@ -10,11 +10,6 @@ export default async function HomeLayout({
   children: React.ReactNode;
 }) {
   const user = await checkUser();
-  console.log("🚀 ~ user:", user);
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <div className="bg-gray-50">

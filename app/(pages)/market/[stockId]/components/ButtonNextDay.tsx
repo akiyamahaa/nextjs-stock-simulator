@@ -1,7 +1,6 @@
 "use client";
 import { nextDay } from "@/app/actions/simulation";
 import { Button } from "@/components/ui/button";
-import React from "react";
 
 const ButtonNextDay = () => {
   const handleNextDay = async () => {

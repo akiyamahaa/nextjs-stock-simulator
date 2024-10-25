@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
 import HeroBG from "@/public/images/hero.png";
 import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -10,7 +9,7 @@ import { cn } from "@/lib/utils";
 const Hero = () => {
   const pathname = usePathname();
   const isDisplay = pathname === "/";
-  
+
   const handleScrollDown = () => {
     window.scrollTo({ top: 900, behavior: "smooth" });
   };
