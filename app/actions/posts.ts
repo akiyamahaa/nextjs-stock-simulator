@@ -19,6 +19,9 @@ async function getPosts(): Promise<IPost[] | null> {
       include: {
         stock: true, // Include related Stock information
       },
+      orderBy: {
+        simulationDay: "asc",
+      },
     });
     return posts;
   } catch (error) {

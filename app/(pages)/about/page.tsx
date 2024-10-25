@@ -2,44 +2,70 @@ export default function AboutPage() {
   return (
     <div className="space-y-8">
       <h1 className="text-4xl font-bold text-gray-800">About Us</h1>
-      <p className="text-base text-gray-800">
-        Lorem ipsum dolor sit amet consectetur. Sed in sapien eget cursus
-        scelerisque vitae massa amet. Vel eu iaculis quis id. Enim elementum
-        turpis quam et viverra. Eget massa quam scelerisque velit dis eu porta.
-        Et felis adipiscing facilisi vitae quam dapibus ac. Purus vel in
-        curabitur enim scelerisque. Sed metus duis et vel hendrerit. Turpis
-        tempus dictum phasellus nunc. Sem felis mollis lacinia proin aliquam.
-        Velit id lectus tincidunt a. Congue augue viverra faucibus pretium amet.
-        Mauris porttitor arcu sed in elementum mattis nibh dui. Senectus amet
-        habitasse ultricies pretium odio. Venenatis dolor phasellus enim sem
-        phasellus sit sed. Pulvinar massa dapibus nunc ut ut. Sed feugiat
-        tincidunt sapien quis lorem consequat ultricies urna proin. Vehicula id
-        est massa felis sit pellentesque pretium aliquam. Ut nibh ac ac dictum
-        aenean arcu mattis ultrices. Ultricies tortor tortor quam ultricies
-        risus nulla risus. Sed nulla pellentesque sed enim porttitor. Natoque a
-        at elementum orci pellentesque eu neque. Scelerisque id cras a sed.
-        Tempor nec sed consequat et integer erat sed ultrices blandit. Nisl
-        ultricies bibendum enim dolor. Vulputate dignissim quam feugiat sit
-        nunc. Accumsan nulla fermentum rhoncus pellentesque fringilla eget.
-        Vitae aliquet eget pharetra commodo orci ullamcorper dolor pretium amet.
-        Sagittis cum mi elementum nulla scelerisque sagittis. In sed ac ac
-        vestibulum enim in sapien lectus ipsum. Arcu purus curabitur cursus
-        donec facilisis amet urna. Dui elementum aliquam consectetur nisi
-        commodo blandit. Arcu diam ultricies velit pretium viverra suspendisse
-        urna sit. Venenatis ac pharetra ac amet dignissim. Tincidunt viverra
-        potenti in dui varius. Tellus at cras nisl pretium ut feugiat.
-        Adipiscing varius turpis purus sagittis blandit ut turpis. Elit
-        curabitur vestibulum feugiat turpis. Viverra mattis fringilla consequat
-        quisque massa ac velit. Metus accumsan lectus leo fringilla. Vitae
-        rutrum vestibulum praesent vehicula urna sit ultrices elit sed. Felis
-        sapien non morbi lacus amet aliquet posuere purus. Nibh fames in nisi
-        nec sapien euismod volutpat eget facilisi. Nibh venenatis non nec nisi.
-        Arcu sed cras mattis viverra augue facilisi enim ornare praesent. Tellus
-        dui at pharetra eu est. Vestibulum tellus fringilla nunc amet lobortis
-        ipsum bibendum vel. Eu mattis ante feugiat sit aliquet sit. Urna orci
-        quis adipiscing bibendum volutpat ornare pulvinar. Massa arcu
-        suspendisse ante blandit facilisi magna volutpat at ornare.
-      </p>
+      <div className="py-8">
+        <h1 className="mb-4 text-3xl font-bold text-gray-900">
+          Giới Thiệu Hệ Thống Mô Phỏng Đầu Tư Tài Chính
+        </h1>
+        <p className="mb-6 text-lg text-gray-700">
+          Hệ thống mô phỏng đầu tư tài chính của chúng tôi là một nền tảng học
+          tập tương tác, giúp người dùng tìm hiểu và rèn luyện kỹ năng phân tích
+          tài chính thông qua giao dịch chứng khoán giả lập. Hệ thống được thiết
+          kế với dữ liệu thị trường thực tế từ quá khứ, cho phép người chơi khám
+          phá những chiến lược đầu tư hiệu quả mà không phải đối mặt với rủi ro
+          thực sự.
+        </p>
+
+        <h2 className="mb-4 text-2xl font-semibold text-gray-800">Cách Chơi</h2>
+        <ul className="mb-6 list-inside list-disc space-y-3 text-gray-700">
+          <li>
+            <strong className="text-gray-900">Tài Khoản Giả Lập</strong>: Mỗi
+            người chơi sẽ được cấp một tài khoản với số tiền giả lập ban đầu.
+            Bạn có thể dùng số tiền này để thực hiện các giao dịch mua, bán,
+            hoặc giữ cổ phiếu qua từng phiên giao dịch.
+          </li>
+          <li>
+            <strong className="text-gray-900">Dữ Liệu Nến Nhật Cố Định</strong>:
+            Hệ thống sử dụng dữ liệu nến Nhật của các mã cổ phiếu trong một
+            khoảng thời gian cố định. Người chơi có thể theo dõi diễn biến giá
+            cả qua các cây nến để phân tích và đưa ra quyết định giao dịch.
+          </li>
+          <li>
+            <strong className="text-gray-900">Tiến Trình Giả Lập 1 năm</strong>:
+            Mỗi phiên giao dịch tương ứng với một ngày trong lịch sử thị trường.
+            Người chơi có thể mô phỏng hoạt động đầu tư trong vòng 90 ngày, với
+            kết quả được cập nhật hàng ngày.
+          </li>
+        </ul>
+
+        <h2 className="mb-4 text-2xl font-semibold text-gray-800">
+          Lợi Ích Khi Sử Dụng Hệ Thống
+        </h2>
+        <ul className="list-inside list-disc space-y-3 text-gray-700">
+          <li>
+            <strong className="text-gray-900">
+              Phát Triển Kỹ Năng Phân Tích Kỹ Thuật
+            </strong>
+            : Người chơi có thể quan sát và phân tích biểu đồ nến, học cách đọc
+            tín hiệu thị trường và xây dựng chiến lược đầu tư.
+          </li>
+          <li>
+            <strong className="text-gray-900">
+              Giảm Thiểu Rủi Ro Khi Đầu Tư Thực Tế
+            </strong>
+            : Hệ thống giúp bạn thử nghiệm các quyết định đầu tư trong một môi
+            trường an toàn, nhằm rèn luyện và cải thiện kỹ năng trước khi bước
+            vào thị trường thật.
+          </li>
+          <li>
+            <strong className="text-gray-900">
+              Trải Nghiệm Thực Tế Không Rủi Ro
+            </strong>
+            : Với các dữ liệu thực, bạn sẽ cảm nhận được sự biến động của thị
+            trường và các tình huống khó khăn, từ đó rèn luyện tư duy và kiểm
+            soát cảm xúc khi đầu tư.
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

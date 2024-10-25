@@ -3,7 +3,7 @@
 import { IStock } from "@/app/actions/stock";
 import { Input } from "@/components/ui/input";
 import { ETradeMode } from "@/constants/utils";
-import { addCommas, cn } from "@/lib/utils";
+import { addCommas, cn, getLatestCandleStick } from "@/lib/utils";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -17,6 +17,11 @@ const OrderStock = ({ stock }: Props) => {
   const [mode, setMode] = useState("");
   const router = useRouter();
   const [quantity, setQuantity] = useState(0);
+
+  const latestCandleStick = getLatestCandleStick(stock.candlesticks!);
+  const change = latestCandleStick
+    ? latestCandleStick?.close - latestCandleStick?.open
+    : 0;
 
   const createTrade = async () => {
     try {
@@ -94,7 +99,7 @@ const OrderStock = ({ stock }: Props) => {
           </div>
           {/* Don't know */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-            <p className="rounded-sm bg-white px-3">0.3</p>
+            <p className="rounded-sm bg-white px-3">{change.toFixed(2)}</p>
           </div>
         </div>
       </div>

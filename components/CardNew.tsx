@@ -29,11 +29,11 @@ const CardNew = ({ post, userDay }: Props) => {
           <div className="absolute inset-0 z-20 rounded-2xl bg-gray-50 opacity-50" />
         )}
 
-        <div className="relative h-48 w-full ">
+        <div className="relative h-48 w-full shadow-sm">
           <img
             src={post.imageUrl}
             alt="image"
-            className="size-full rounded-t-2xl object-cover"
+            className="size-full rounded-t-2xl object-contain"
           />
           {/* label lock  */}
           <div

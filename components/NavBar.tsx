@@ -61,9 +61,10 @@ const NavBar = ({ userDay }: Props) => {
   return (
     <div
       className={cn(
-        "flex flex-row justify-between items-center px-8 py-3 fixed top-0 left-0 right-0 z-10",
+        "flex flex-row justify-between items-center px-8 py-3 fixed top-0 left-0 right-0",
         !isScrolled && "bg-white border-b border-b-stroke"
       )}
+      style={{ zIndex: 100 }}
     >
       {/* Menu Btn */}
       <div className="flex items-center md:hidden">

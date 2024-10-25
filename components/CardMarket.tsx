@@ -15,7 +15,7 @@ const CardMarket = ({ stock }: Props) => {
   const percentChange = latestStick ? (change / latestStick?.open) * 100 : 0;
   return (
     <Link href={`/market/${stock.id}`}>
-      <div className="flex flex-col items-start rounded-2xl bg-white p-6 shadow-app">
+      <div className="flex h-full flex-col items-start justify-between rounded-2xl bg-white p-6 shadow-app">
         <LogoCompany isHorizontal={false} stock={stock} />
         <div className="mt-4 w-full space-y-2">
           <div className="flex flex-row justify-between">

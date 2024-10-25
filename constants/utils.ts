@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum ETradeMode {
   BUY = "buy",
   SELL = "sell",
@@ -5,4 +6,4 @@ export enum ETradeMode {
 
 export const INITIAL_DAY = 30;
 
-export const INTIAL_BALANCE = 10000;
+export const INTIAL_BALANCE = 1000;
