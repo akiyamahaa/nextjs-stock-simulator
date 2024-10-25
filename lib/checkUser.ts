@@ -1,55 +1,51 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "./db";
-import { INITIAL_DAY } from "@/constants/utils";
+import { INITIAL_DAY, INTIAL_BALANCE } from "@/constants/utils";
 
 export const checkUser = async () => {
   const user = await currentUser();
-  // Check current logged in clerk
+
   if (!user) {
     return null;
   }
 
-  // check if user is already in db
+  // First check if the user already exists in the database
   const loggedInUser = await db.user.findUnique({
     where: {
       clerkUserId: user.id,
     },
     include: {
-      simulation: true, // Include the simulation to check if it exists
+      simulation: true,
     },
   });
-  // if user is in db, return user info
+
   if (loggedInUser) {
-    // Check if the user has a simulation
-    if (!loggedInUser.simulation) {
-      // Create a simulation if the user does not have one
-      await db.simulation.create({
-        data: {
-          currentDay: INITIAL_DAY,
-          userId: loggedInUser.clerkUserId,
-          startDate: new Date(),
-        },
-      });
-    }
     return loggedInUser;
   }
-  // if user is not in db, create new user
-  const newUser = await db.user.create({
-    data: {
-      clerkUserId: user.id,
-      name: `${user.firstName} ${user.lastName}`,
-      imageUrl: user.imageUrl,
-      email: user.emailAddresses[0].emailAddress,
-    },
-  });
 
-  const simulation = await db.simulation.create({
-    data: {
-      currentDay: INITIAL_DAY,
-      userId: newUser.clerkUserId,
-      startDate: new Date(),
-    },
-  });
+  // Attempt to create the user in a try-catch block
+  try {
+    const newUser = await db.user.create({
+      data: {
+        clerkUserId: user.id,
+        name: `${user.firstName} ${user.lastName}`,
+        imageUrl: user.imageUrl,
+        email: user.emailAddresses[0].emailAddress,
+        balance: INTIAL_BALANCE,
+      },
+    });
 
-  return { ...newUser, simulation };
+    const simulation = await db.simulation.create({
+      data: {
+        currentDay: INITIAL_DAY,
+        userId: newUser.clerkUserId,
+        startDate: new Date(),
+      },
+    });
+
+    return { ...newUser, simulation };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.log(error); // Throw other errors for debugging purposes
+  }
 };
