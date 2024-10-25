@@ -57,7 +57,7 @@ async function getLatestPosts(): Promise<IPost[] | null> {
       orderBy: {
         simulationDay: "desc",
       },
-      take: 3,
+      take: 6,
     });
     return latestPosts;
   } catch (error) {
