@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import {
   Table,
@@ -9,12 +10,13 @@ import {
 } from "@/components/ui/table";
 import LogoCompany from "../../../../components/LogoCompany";
 import InterestRate from "../../../../components/InterestRate";
-import { getAllStockHolding } from "@/app/actions/trade";
+// import { getAllStockHolding } from "@/app/actions/trade";
 import { getLatestCandleStick } from "@/lib/utils";
 
 const TableInvest = async () => {
-  const allStockHolding = await getAllStockHolding();
-  console.log("🚀 ~ TableInvest ~ allStockHolding:", allStockHolding);
+  // const allStockHolding = await getAllStockHolding();
+  // console.log("🚀 ~ TableInvest ~ allStockHolding:", allStockHolding);
+  const allStockHolding: any = [];
 
   if (allStockHolding.length === 0) {
     return null;
@@ -45,7 +47,7 @@ const TableInvest = async () => {
         </TableHeader>
         <TableBody>
           {allStockHolding &&
-            allStockHolding.map((elm) => {
+            allStockHolding.map((elm: any) => {
               const latestStick = getLatestCandleStick(
                 elm.stock!.candlesticks!
               );
