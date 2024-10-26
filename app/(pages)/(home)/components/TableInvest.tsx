@@ -13,40 +13,38 @@ import { getAllStockHolding } from "@/app/actions/trade";
 import { getLatestCandleStick } from "@/lib/utils";
 
 const TableInvest = async () => {
-  const allStockHoldingTest = await getAllStockHolding();
-  console.log("🚀 ~ TableInvest ~ allStockHolding:", allStockHoldingTest);
-  const allStockHolding: any = [];
-
-  if (allStockHolding.length === 0) {
-    return null;
-  }
+  const allStockHolding = await getAllStockHolding();
 
   return (
     <div className="rounded-2xl bg-white p-6 shadow-app">
       <h1 className="text-3xl font-bold leading-9 text-gray-800">Invest</h1>
-      <Table className="min-w-[768px] overflow-x-scroll">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="text-base font-semibold text-gray-400">
-              Name
-            </TableHead>
-            <TableHead className="text-base font-semibold text-gray-400">
-              Total Shares
-            </TableHead>
-            <TableHead className="text-base font-semibold text-gray-400">
-              Current Price
-            </TableHead>
-            <TableHead className="text-base font-semibold text-gray-400">
-              Profit/Loss
-            </TableHead>
-            <TableHead className="text-base font-semibold text-gray-400">
-              Investment
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {allStockHolding &&
-            allStockHolding.map((elm: any) => {
+      {allStockHolding.length === 0 ? (
+        <div className="text-center text-xl text-gray-500">
+          There are currently no transactions.
+        </div>
+      ) : (
+        <Table className="min-w-[768px] overflow-x-scroll">
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-base font-semibold text-gray-400">
+                Name
+              </TableHead>
+              <TableHead className="text-base font-semibold text-gray-400">
+                Total Shares
+              </TableHead>
+              <TableHead className="text-base font-semibold text-gray-400">
+                Current Price
+              </TableHead>
+              <TableHead className="text-base font-semibold text-gray-400">
+                Profit/Loss
+              </TableHead>
+              <TableHead className="text-base font-semibold text-gray-400">
+                Investment
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {allStockHolding.map((elm: any) => {
               const latestStick = getLatestCandleStick(
                 elm.stock!.candlesticks!
               );
@@ -74,8 +72,9 @@ const TableInvest = async () => {
                 </TableRow>
               );
             })}
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 };

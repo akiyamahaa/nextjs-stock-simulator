@@ -55,31 +55,29 @@ export interface IGetAllStockHolding {
   unrealizedProfitLoss: number;
 }
 
-const getAllStockHolding = async (): Promise<IGetAllStockHolding[]> => {
+const getAllStockHolding = async (): Promise<IGetAllStockHolding[] | []> => {
   const { userId } = auth();
+  if (!userId) {
+    return [];
+  }
   try {
     const trades = await db.trade.findMany({
-      where: {
-        userId: userId!,
-      },
-      select: {
-        stockId: true,
-      },
+      where: { userId },
+      select: { stockId: true },
+      distinct: ["stockId"], // Using distinct to get unique stockIds directly
     });
 
-    const uniqueStockIds: number[] = trades.reduce((acc: any, current: any) => {
-      if (!acc.includes(current.stockId)) {
-        acc.push(current.stockId);
-      }
-      return acc;
-    }, []);
+    const uniqueStockIds = trades.map((trade) => trade.stockId);
 
     const allStockInfo = await Promise.all(
       uniqueStockIds.map(async (stockId) => {
-        const stock = await getStockById(stockId);
-        const stockHolding = await getStockHoldingById(stockId);
+        const [stock, stockHolding, allBuyTrades] = await Promise.all([
+          getStockById(stockId),
+          getStockHoldingById(stockId),
+          getBuyTrades(stockId),
+        ]);
+        if (!stock) return null; // Handle any case where stock is not found
         const latestStick = getLatestCandleStick(stock!.candlesticks!);
-        const allBuyTrades = await getBuyTrades(stock!.id);
         // Total Shares Purchased
         const totalBuyShares = allBuyTrades?.reduce(
           (total, currentTrade) => total + currentTrade.quantity,
@@ -98,9 +96,11 @@ const getAllStockHolding = async (): Promise<IGetAllStockHolding[]> => {
         return { stock, stockHolding, unrealizedProfitLoss };
       })
     );
-    return allStockInfo;
+    return allStockInfo.filter(
+      (info) => info !== null
+    ) as IGetAllStockHolding[];
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching stock holdings:", error);
     return [];
   }
 };
