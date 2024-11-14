@@ -1,5 +1,6 @@
 "use client";
 
+import { memo, useMemo } from "react";
 import { ICandleStick } from "@/app/actions/stock";
 import {
   IgrFinancialChart,
@@ -12,15 +13,23 @@ type Props = {
   data: ICandleStick[];
 };
 
-const CandleChart = ({ data }: Props) => {
-  const dataDisplay = data.map((item) => ({
-    close: item.close,
-    open: item.open,
-    high: item.high,
-    low: item.low,
-    date: item.date,
-    volume: item.volume,
-  }));
+// eslint-disable-next-line react/display-name
+const CandleChart = memo(({ data }: Props) => {
+  console.log("🚀 ~ CandleChart ~ data:", data);
+  const dataDisplay = useMemo(
+    () =>
+      data.map((item) => ({
+        close: item.close,
+        open: item.open,
+        high: item.high,
+        low: item.low,
+        date: item.date,
+        volume: item.volume,
+      })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [data.length]
+  );
+
   return (
     <div className="size-full bg-white">
       <IgrFinancialChart
@@ -36,6 +45,6 @@ const CandleChart = ({ data }: Props) => {
       />
     </div>
   );
-};
+});
 
 export default CandleChart;

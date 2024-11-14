@@ -31,8 +31,8 @@ const OrderStock = ({ stock }: Props) => {
         price: stock.candlesticks![stock.candlesticks!.length - 1].close, // Price per stock
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      router.refresh();
       toast.success(`${mode.toUpperCase()} SUCCESSFULLY`);
+      router.refresh();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.response?.data || error.message);

@@ -11,13 +11,13 @@ export const POST = async (
 ) => {
   try {
     const { userId } = auth();
-    const body = await req.json(); // Parse the JSON body from the request
     if (!userId) {
       return new NextResponse("Un-Authorized", { status: 400 });
     }
     if (!params.stockId) {
       return new NextResponse("stock Id is missing", { status: 400 });
     }
+
     const user = await db.user.findUnique({
       where: { clerkUserId: userId },
       include: { simulation: true }, // Include the user's simulation
@@ -27,19 +27,20 @@ export const POST = async (
       return new NextResponse("User not found", { status: 404 });
     }
 
+    const body = await req.json(); // Parse the JSON body from the request
     const { tradeType, quantity, price } = body;
     // Calculate total price
     const totalTradeValue = quantity * price;
 
-    let updatedBalance = 0;
+    let updatedBalance = user.balance;
 
     if (tradeType === ETradeMode.BUY) {
-      if (user.balance < totalTradeValue) {
+      if (updatedBalance < totalTradeValue) {
         return new NextResponse("Insufficient balance for this trade", {
           status: 400,
         });
       }
-      updatedBalance = user.balance - totalTradeValue;
+      updatedBalance -= totalTradeValue;
     } else if (tradeType === ETradeMode.SELL) {
       const currentStockHoldings = await getStockHoldingById(
         parseInt(params.stockId)
@@ -49,7 +50,9 @@ export const POST = async (
           status: 400,
         });
       }
-      updatedBalance = user.balance + totalTradeValue;
+      updatedBalance += totalTradeValue;
+    } else {
+      return new NextResponse("Invalid trade type", { status: 400 });
     }
     await db.user.update({
       where: {
