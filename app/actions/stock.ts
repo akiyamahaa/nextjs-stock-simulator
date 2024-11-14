@@ -28,6 +28,9 @@ export interface IStock {
 
 async function getStocks(): Promise<IStock[] | null> {
   const { userId } = auth();
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
   try {
     const userSimulation = await db.simulation.findUnique({
       where: {
@@ -63,6 +66,9 @@ async function getStocks(): Promise<IStock[] | null> {
 
 async function getStockById(stockId: number): Promise<IStock | null> {
   const { userId } = auth();
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
   try {
     const userSimulation = await db.simulation.findUnique({
       where: {
@@ -101,6 +107,9 @@ async function getStockById(stockId: number): Promise<IStock | null> {
 
 const getStockHoldingById = async (stockId: number) => {
   const { userId } = auth();
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
   const userTrades = await db.trade.findMany({
     where: {
       userId: userId!,
