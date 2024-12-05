@@ -1,6 +1,6 @@
 import ListCardTotal from "./components/ListCardTotal";
 import ListMarket from "@/components/ListMarket";
-import ListNew from "@/components/ListNew";
+// import ListNew from "@/components/ListNew";
 import { SignedIn } from "@clerk/nextjs";
 import TableInvest from "./components/TableInvest";
 import { checkUser } from "@/lib/checkUser";
@@ -26,12 +26,12 @@ export default async function Home() {
           </h1>
           <ListMarket />
         </div>
-        <div className="space-y-6">
+        {/* <div className="space-y-6">
           <h1 className="text-3xl font-bold text-gray-800">
             Lastest Stock News
           </h1>
           <ListNew type="latest" />
-        </div>
+        </div> */}
       </SignedIn>
     </div>
   );
